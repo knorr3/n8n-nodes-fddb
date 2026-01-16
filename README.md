@@ -2,9 +2,7 @@
 
 <div style="display: flex; align-items: center; justify-content: center;">
   <img src="icons/fddb-logo-large.jpg" width="250" />
-  <div style="width: 1px; height: 80px; background-color: #c0c0c0ff; margin: 0 20px;"></div>
   <img src="icons/n8n-logo-large.png" width="250" />
-  <div style="width: 1px; height: 80px; background-color: #c0c0c0ff; margin: 0 20px;"></div>
   <img src="icons/hm-logo-large.png" width="250" />
 </div>
 

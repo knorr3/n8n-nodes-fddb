@@ -1,5 +1,10 @@
-import { INodeProperties } from 'n8n-workflow';
-import { xmlToJson, parseDiary } from '../ParseFunctions';
+import {
+	IExecuteSingleFunctions,
+	INodeExecutionData,
+	INodeProperties,
+    JsonObject,
+} from 'n8n-workflow';
+import { xmlToJson } from '../utils/XmlParser';
 
 export const diaryOperations: INodeProperties[] = [
 	{
@@ -144,3 +149,88 @@ export const diaryFields: INodeProperties[] = [
         ],
     },
 ];
+
+interface IDiaryEntry {
+	diary_date: string;
+	diaryshortitem: {
+		data: {
+			amount: string;
+			diary_serving_amount: string;
+			diary_serving_name: string;
+			aggregate_state: string;
+			kcal: string;
+			fat_gram: string;
+			kh_gram: string;
+			sugar_gram: string;
+			protein_gram: string;
+			df_gram: string;
+			water_gram: string;
+			alcohol_gram: string;
+			fat_sat_gram: string;
+		};
+		description: {
+			name: string;
+			option?: string;
+		};
+	};
+}
+
+export async function parseDiary(
+	this: IExecuteSingleFunctions,
+	items: INodeExecutionData[],
+): Promise<INodeExecutionData[]> {
+	const returnItems: INodeExecutionData[] = [];
+
+	for (const item of items) {
+		const result = item.json.result as { diaryelement?: unknown | unknown[] };
+
+		if (!result || !result.diaryelement) {
+			continue;
+		}
+
+		let diaryData = result.diaryelement;
+
+		if (!Array.isArray(diaryData)) {
+			diaryData = [diaryData];
+		}
+
+		for (const entry of diaryData as IDiaryEntry[]) {
+			const data = entry.diaryshortitem.data;
+			const description = entry.diaryshortitem.description;
+
+			const amount = parseFloat(data.amount);
+			const diaryServingAmount = parseFloat(data.diary_serving_amount);
+			const factor = amount > 0 ? diaryServingAmount / amount : 0;
+
+			const getValue = (val: string | undefined): number => {
+				if (!val || val === '-1') return 0;
+				return parseFloat(val);
+			};
+
+			const newItem: JsonObject = {
+				diary_date: entry.diary_date,
+				name: description.option ? `${description.name} (${description.option})` : description.name,
+				diary_item: {
+						diary_serving_name: data.diary_serving_name,
+						aggregate_state: data.aggregate_state,
+						kcal: Math.floor(getValue(data.kcal) * factor),
+						fat_gram: Math.floor(getValue(data.fat_gram) * factor),
+						kh_gram: Math.floor(getValue(data.kh_gram) * factor),
+						sugar_gram: Math.floor(getValue(data.sugar_gram) * factor),
+						protein_gram: Math.floor(getValue(data.protein_gram) * factor),
+						df_gram: Math.floor(getValue(data.df_gram) * factor),
+						water_gram: Math.floor(getValue(data.water_gram) * factor),
+						alcohol_gram: Math.floor(getValue(data.alcohol_gram) * factor),
+						fat_sat_gram: Math.floor(getValue(data.fat_sat_gram) * factor),
+				},
+			};
+
+			returnItems.push({
+				json: newItem,
+				pairedItem: item.pairedItem,
+			});
+		}
+	}
+
+	return returnItems;
+}

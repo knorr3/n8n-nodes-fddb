@@ -1,5 +1,10 @@
-import { INodeProperties } from 'n8n-workflow';
-import { parseFoodItems } from '../ParseFunctions';
+import {
+	IExecuteSingleFunctions,
+	INodeExecutionData,
+	INodeProperties,
+    JsonObject,
+    JsonValue,
+} from 'n8n-workflow';
 
 export const foodOperations: INodeProperties[] = [
 	{
@@ -92,3 +97,67 @@ export const foodFields: INodeProperties[] = [
 		},
 	}
 ];
+
+interface IFddbItem {
+	id: string;
+	name: string;
+	option: string;
+	producer: string;
+	kj: string;
+	carbs: string;
+	protein: string;
+	fat: string;
+	satFat: string;
+	sugar: string;
+	df: string;
+	imageUrl: string;
+	servings: JsonValue;
+	key?: number | string;
+}
+
+export async function parseFoodItems(
+	this: IExecuteSingleFunctions,
+	items: INodeExecutionData[],
+	responseData: unknown,
+): Promise<INodeExecutionData[]> {
+	const returnItems: INodeExecutionData[] = [];
+
+	const response = responseData as { body?: { items?: unknown } };
+	const itemsArray = response.body?.items;
+
+	if (Array.isArray(itemsArray)) {
+		for (const item of itemsArray as IFddbItem[]) {
+			const newItem: JsonObject = {
+				id: item.id,
+				name: item.name,
+				option: item.option,
+				producer: item.producer,
+				calories: Math.floor(parseFloat(item.kj) * 0.2390057361),
+				carbs: item.carbs,
+				protein: item.protein,
+				fat: item.fat,
+				saturatedFat: item.satFat,
+				sugar: item.sugar,
+				fiber: item.df,
+				image: item.imageUrl,
+				serving: item.servings,
+			};
+
+			returnItems.push({
+				json: newItem,
+				pairedItem: {
+					item: (item.key as number) || 0,
+				},
+			});
+		}
+	} else {
+		returnItems.push({
+			json: responseData as JsonObject,
+			pairedItem: {
+				item: (items[0]?.key ?? 0) as number,
+			},
+		});
+	}
+
+	return returnItems;
+}

@@ -1,5 +1,9 @@
 # n8n-nodes-fddb
 
+<img src="icons/fddb-logo-large.jpg" width="250" /> <img src="icons/n8n-logo-large.png" width="250" />
+
+<img src="icons/hm-logo-large.png" width="500" />
+
 This is an n8n community node. It lets you use Fddb in your n8n workflows.
 
 [Fddb](https://fddb.info/) is a food diary database.

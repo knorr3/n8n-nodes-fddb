@@ -1,12 +1,16 @@
 # n8n-nodes-fddb
 
-<img src="icons/fddb-logo-large.jpg" width="250" /> <img src="icons/n8n-logo-large.png" width="250" />
-
-<img src="icons/hm-logo-large.png" width="500" />
+<div style="display: flex; align-items: center; justify-content: center;">
+  <img src="icons/fddb-logo-large.jpg" width="250" />
+  <div style="width: 1px; height: 80px; background-color: #c0c0c0ff; margin: 0 20px;"></div>
+  <img src="icons/n8n-logo-large.png" width="250" />
+  <div style="width: 1px; height: 80px; background-color: #c0c0c0ff; margin: 0 20px;"></div>
+  <img src="icons/hm-logo-large.png" width="250" />
+</div>
 
 This is an n8n community node. It lets you use Fddb in your n8n workflows.
 
-[Fddb](https://fddb.info/) is a food diary database.
+[Fddb](https://fddb.info/) is a food diary database app by Food Database GmbH.
 
 [n8n](https://n8n.io/) is a fair-code licensed workflow automation platform.
 

@@ -1,0 +1,54 @@
+{
+  "name": "n8n-nodes-fddb",
+  "version": "0.2.0",
+  "description": "This is an n8n community node. It lets you use Fddb in your n8n workflows.",
+  "license": "MIT",
+  "homepage": "",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "author": {
+    "name": "Adrian Knorr",
+    "email": "adrian.f.knorr@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knorr3/n8n-nodes-fddb.git"
+  },
+  "scripts": {
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/FddbApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Fddb/Fddb.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "*",
+    "@types/xml2js": "^0.4.14",
+    "eslint": "9.32.0",
+    "prettier": "3.6.2",
+    "release-it": "^19.0.4",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "dependencies": {
+    "xml2js": "^0.6.2"
+  }
+}

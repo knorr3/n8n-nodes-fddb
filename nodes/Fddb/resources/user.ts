@@ -141,11 +141,11 @@ export async function parseProfile(
 				yearofbirth: parseInt(profile.yearofbirth as string, 10),
 				monthofbirth: parseInt(profile.monthofbirth as string, 10),
 				dayofbirth: parseInt(profile.dayofbirth as string, 10),
-				heightcm: parseInt(profile.heightcm as string, 10),
+				height_in_cm: parseInt(profile.heightcm as string, 10),
 				dailyCaloriesBudget: Math.floor(parseInt(profile.dvkj as string, 10) * 0.2390057361),
-				goalCarbs: parseInt(profile.goalkh as string, 10),
-				goalProtein: parseInt(profile.goalprotein as string, 10),
-				goalWater: parseInt(profile.goalwater as string, 10),
+				dailyGoalCarbs: parseInt(profile.goalkh as string, 10),
+				dailyGoalProtein: parseInt(profile.goalprotein as string, 10),
+				dailyGoalWater: parseInt(profile.goalwater as string, 10),
 			};
 
 			returnItems.push({

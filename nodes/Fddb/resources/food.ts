@@ -132,15 +132,14 @@ export async function parseFoodItems(
 				name: item.name,
 				option: item.option,
 				producer: item.producer,
-				calories: Math.floor(parseFloat(item.kj) * 0.2390057361),
-				carbs: item.carbs,
-				protein: item.protein,
-				fat: item.fat,
-				saturatedFat: item.satFat,
-				sugar: item.sugar,
-				fiber: item.df,
-				image: item.imageUrl,
-				serving: item.servings,
+				calories_per_100g: Math.floor(parseFloat(item.kj) * 0.2390057361),
+				carbs_per_100g: item.carbs,
+				protein_per_100g: item.protein,
+				fat_per_100g: item.fat,
+				saturated_fat_per_100g: item.satFat,
+				sugar_per_100g: item.sugar,
+				fiber_per_100g: item.df,
+				exampleServings: item.servings,
 			};
 
 			returnItems.push({

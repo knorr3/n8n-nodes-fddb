@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-fddb",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "This is an n8n community node. It lets you use Fddb in your n8n workflows.",
   "license": "MIT",
   "homepage": "",

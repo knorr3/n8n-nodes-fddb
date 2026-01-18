@@ -68,8 +68,9 @@ Um abzunehmen, müssen wir wieder genauer tracken und das Defizit einhalten. Sch
 
 # Uhrzeit und Datum
 
-Jetzt gerade ist {{ $now }}
+Jetzt gerade ist `{{ $now }}`
 
+```
 {{ 
   $('Telegram Trigger').item.json.message?.reply_to_message?.text
   ?
@@ -77,7 +78,10 @@ Jetzt gerade ist {{ $now }}
   :
   "" 
 }}
+```
 
 # USER PROMPT
 
+```
 {{ $('Telegram Trigger').item.json.message.text }}
+```

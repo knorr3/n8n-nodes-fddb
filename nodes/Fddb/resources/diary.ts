@@ -26,7 +26,7 @@ export const diaryOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/diary/get_interval_{{new Date($parameter.startDate).getDate()}}_{{new Date($parameter.startDate).getMonth() + 1}}_{{new Date($parameter.startDate).getFullYear()}}_{{new Date($parameter.endDate).getDate()}}_{{new Date($parameter.endDate).getMonth() + 1}}_{{new Date($parameter.endDate).getFullYear()}}.xml',
+						url: '=/diary/get_interval_{{new Date($parameter.startDate.split("T")[0]).getUTCDate()}}_{{new Date($parameter.startDate.split("T")[0]).getUTCMonth() + 1}}_{{new Date($parameter.startDate.split("T")[0]).getUTCFullYear()}}_{{new Date($parameter.endDate.split("T")[0]).getUTCDate()}}_{{new Date($parameter.endDate.split("T")[0]).getUTCMonth() + 1}}_{{new Date($parameter.endDate.split("T")[0]).getUTCFullYear()}}.xml',
 						qs: {
 							lang: '={{$parameter.lang}}',
 							timezone: '={{$parameter.timezone}}',

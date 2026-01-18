@@ -101,7 +101,7 @@ export async function parseHistory(
 
 		for (const entry of historyData as Array<{ date: string; weight: string; dvkj?: string }>) {
 			const newItem: JsonObject = {
-				date: new Date(parseInt(entry.date, 10) * 1000).toISOString(),
+				date: new Date(parseInt(entry.date, 10) * 1000 + 3600000).toISOString(),
 				weight: parseFloat(entry.weight),
 			};
 
